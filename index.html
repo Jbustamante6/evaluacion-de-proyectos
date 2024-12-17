@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <title>Proceso de evaluación de software</title>
+</head>
+
+<body data-bs-theme="light">
+
+    <div class="collapse show container w-75 mt-3 pt-3 mb-3" ng-app="App" ng-controller="Ctrl" id="Creacion">
+        <h1 class="title text-primary mb-3 mt-3">Nuevo Producto</h1>
+        <button type="button" class="btn btn-secondary">
+            Cargar evaluación previa
+        </button>
+        <div class="progress-container mb-3 mt-3">
+
+            <div class="progress">
+                <div id="progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 20%"
+                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <span id="progress-message" class="badge rounded-pill text-bg-secondary float-end mt-2">
+                Paso 1 de 6
+            </span>
+        </div>
+        <ul class="nav nav-pills nav-fill mt-5 w-100" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    aria-selected="true">Registro</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link disabled" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    aria-controls="profile" aria-selected="false">Artefactos</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link disabled" id="plan-evaluacion-tab" data-toggle="tab" href="#plan-evaluacion"
+                    role="tab" aria-controls="contact" aria-selected="false">Plan de Evaluacion</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link disabled" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                    aria-controls="contact" aria-selected="false">Evaluación</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link disabled" id="calificacion-tab" data-toggle="tab" href="#calificacion" role="tab"
+                    aria-controls="calificacion" aria-selected="false">Calificación</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link disabled" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
+                    aria-controls="resultados" aria-selected="false">Resultados</a>
+            </li>
+        </ul>
+        <div class="tab-content py-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h2 class="title text-primary mb-3 mt-3">Registro de producto</h2>
+                <form name="crearForm" novalidate>
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="form-group mb-3"
+                                ng-class="{'error' : (crearForm.$submitted || crearForm.nombre.$touched) && crearForm.nombre.$error.required }">
+                                <label for="">Nombre del producto</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre" ng-model="item.nombre"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="form-group mb-3"
+                                ng-class="{'error' : (crearForm.$submitted || crearForm.descripcion.$touched) && crearForm.descripcion.$error.required }">
+                                <label for="">Descripción del producto</label>
+                                <textarea class="form-control" name="descripcion" id="descripcion"
+                                    ng-model="item.descripcion" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="form-group mb-3"
+                                ng-class="{'error' : (crearForm.$submitted || crearForm.proposito.$touched) && crearForm.proposito.$error.required }">
+                                <label for="">Propósito</label>
+                                <textarea class="form-control" name="proposito" id="proposito" ng-model="item.proposito"
+                                    rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="form-group mb-3"
+                                ng-class="{'error' : (crearForm.$submitted || crearForm.objetivos.$touched) && crearForm.objetivos.$error.required }">
+                                <label for="">Objetivos</label>
+                                <textarea class="form-control" name="objetivos" id="objetivos" ng-model="item.objetivos"
+                                    rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="">Evaluador responsable</label>
+                                <select class="form-control" name="responsable" id="responsable"
+                                    ng-model="item.responsable" required>
+                                    <option value="" disabled selected>
+                                        Selecciona una opción
+                                    </option>
+                                    <option value="Juan Carlos Rodríguez Pérez">
+                                        Juan Carlos Rodríguez Pérez
+                                    </option>
+                                    <option value="María Fernanda Gómez López">
+                                        María Fernanda Gómez López
+                                    </option>
+                                    <option value="Andrés Felipe Martínez Castro">
+                                        Andrés Felipe Martínez Castro
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="">Evaluadores</label>
+                                <select class="form-control" name="evaluadores" id="evaluadores"
+                                    ng-model="item.evaluadores" multiple required>
+                                    <option value="Juan Carlos Rodríguez Pérez">
+                                        Juan Carlos Rodríguez Pérez
+                                    </option>
+                                    <option value="María Fernanda Gómez López">
+                                        María Fernanda Gómez López
+                                    </option>
+                                    <option value="Andrés Felipe Martínez Castro">
+                                        Andrés Felipe Martínez Castro
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="form-group mb-3"
+                                ng-class="{'error' : (crearForm.$submitted || crearForm.fecha_inicio.$touched) && crearForm.fecha_inicio.$error.required }">
+                                <label for="">Fecha inicio</label>
+                                <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio"
+                                    ng-model="item.fecha_inicio" required />
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="form-group mb-3"
+                                ng-class="{'error' : (crearForm.$submitted || crearForm.fecha_fin.$touched) && crearForm.fecha_fin.$error.required }">
+                                <label for="">Fecha finalización</label>
+                                <input type="date" class="form-control" name="fecha_fin" id="fecha_fin"
+                                    ng-model="item.fecha_fin" required />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-md-12 text-center mt-3">
+                        <button class="btn btn-lg btn-success" type="submit" ng-click="pasarTab('profile', crearForm )">
+                            Siguiente
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h2 class="title text-primary mb-3 mt-3">Registro de artefactos</h2>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Cargar artefacto
+                </button>
+
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Manual de usuario</td>
+                            <td><a href="#">LINK</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Editar</button>
+                                <button class="btn btn-sm btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-12 col-md-12 text-center mt-3">
+                    <button class="btn btn-lg btn-danger" ng-click="backTab()">
+                        Volver
+                    </button>
+                    <button class="btn btn-lg btn-success" type="submit" ng-click="pasarTab('plan-evaluacion')">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <h2 class="title text-primary mb-3 mt-3">
+                    Configuración de evaluación
+                </h2>
+                <div class="alert alert-success">
+                    Seleccione las características, subcaracterísticas y atributos
+                    para evaluar el producto.
+                </div>
+
+                <div class="list-group">
+                    <div class="list-group-item" ng-repeat="it in item.caracteristicas">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox{{it.id}}"
+                                ng-model="it.activo" />
+                            <label class="form-check-label" for="inlineCheckbox{{it.id}}">
+                                <h5 class="mb-0">{{it.nombre}}</h5>
+                                <small>{{it.descripcion}}</small>
+                            </label>
+                        </div>
+                        <div class="list-group mt-2" ng-if="it.activo">
+                            <div class="form-group mb-3">
+                                <label class="mb-0">Ponderación para {{it.nombre}}</label>
+                                <input type="number" class="form-control form-control-sm" name="nombre"
+                                    ng-model="it.ponderacion" step="0.1" min="0" max="1"
+                                    oninput="this.value = this.value < 0 ? 0 : this.value > 1 ? 1 : this.value"
+                                    required />
+                            </div>
+
+                            <div class="list-group-item" ng-repeat="i in it.subcaracteristicas">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox"
+                                        id="inlineCheckbox{{it.id}}{{$index}}" ng-model="i.activo" />
+                                    <label class="form-check-label" for="inlineCheckbox{{it.id}}{{$index}}">
+                                        <h5 class="mb-0">{{i.nombre}}</h5>
+                                        <small>{{i.descripcion}}</small>
+                                    </label>
+                                </div>
+
+                                <div class="mt-2" ng-if="i.activo">
+                                    <div class="form-group mt-1">
+                                        <label class="mb-0">Ponderación para {{i.nombre}}</label>
+                                        <input type="number" class="form-control form-control-sm" name="nombre"
+                                            ng-model="i.ponderacion" step="0.1" min="0" max="1"
+                                            oninput="this.value = this.value < 0 ? 0 : this.value > 1 ? 1 : this.value"
+                                            required />
+                                    </div>
+                                    <hr>
+                                    <h5>Atributos</h5>
+                                    <div class="form-group mt-1" ng-repeat="a in i.atributos">
+                                        <label class="mb-0">Ponderación para {{a.nombre}}</label>
+                                        <input type="number" class="form-control form-control-sm"
+                                            ng-model="a.ponderacion" step="0.1" min="0" max="1"
+                                            oninput="this.value = this.value < 0 ? 0 : this.value > 1 ? 1 : this.value" />
+                                    </div>
+                                    <hr>
+                                    <div class="d-block text-center">
+                                        Total ponderación: {{getTotal(i.atributos)}}
+                                        <div>
+                                            <span ng-if="getTotal(i.atributos) > 1" class="invalid-feedback d-block">El
+                                                total no puede ser mayor que 1</span>
+                                            <span ng-if="0 > getTotal(i.atributos)" class="invalid-feedback d-block">El
+                                                total no puede ser menor que 0</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-12 text-center mt-3">
+                    <button class="btn btn-lg btn-danger" ng-click="backTab()">
+                        Volver
+                    </button>
+                    <button class="btn btn-lg btn-success" type="submit" ng-click="pasarTab('calificacion')">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="plan-evaluacion" role="tabpanel" aria-labelledby="plan-evaluacion-tab">
+                <h2 class="title text-primary mb-3 mt-3">
+                    Plan de Evaluacion
+                </h2>
+                <div class="alert alert-success">
+                    Cargue el plan de evaluacion que va ser usado.
+                </div>
+
+                <form name="loadForm" novalidate>
+                    <div class="input-group mb-3"
+                        ng-class="{'error' : (loadForm.$submitted || loadForm.file.$touched) && loadForm.file.$error.required }">
+                        <input type="file" name="file-element" id="file-element" class="form-control"
+                            file-model="item.file" required>
+                        <label class="input-group-text" for="file-element">Upload</label>
+                    </div>
+                    <span class="invalid-feedback d-block" ng-if="showError && !item.file">
+                        Por favor, selecciona un archivo.
+                    </span>
+
+                    <div class="col-12 col-md-12 text-center mt-3">
+                        <button class="btn btn-lg btn-danger" ng-click="backTab()">
+                            Volver
+                        </button>
+                        <button class="btn btn-lg btn-success" type="submit" ng-click="pasarTab('contact',loadForm)">
+                            Siguiente
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="calificacion" role="tabpanel" aria-labelledby="calificacion-tab">
+                <h2 class="title text-primary mb-3 mt-3">
+                    Calificación de la evaluación
+                </h2>
+
+                <div class="alert alert-success">
+                    Para realizar la calificación primero debe seleccionar las
+                    características, subcaracterísticas y atributos para evaluar el
+                    producto.
+                </div>
+                <div>
+                    <table style="width: 100%; border-collapse: collapse; text-align: center;">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #fa0505;">1</th>
+                                <th style="background-color: #bf4242;">2</th>
+                                <th style="background-color: #fbff00;">3</th>
+                                <th style="background-color: #19f900;">4</th>
+                                <th style="background-color: #25db34;">5</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="background-color: #fa0505;">No cumple</td>
+                                <td style="background-color: #bf4242;">Cumple de manera minima</td>
+                                <td style="background-color: #fbff00;">Cumple en la mayoria de los casos</td>
+                                <td style="background-color: #19f900;">Cumple en gran medida</td>
+                                <td style="background-color: #25db34;">Cumple en todos los casos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="list-group">
+                    <div class="list-group-item" ng-repeat="it in item.caracteristicas | filter:{activo : true}">
+                        <h5 class="mb-0">
+                            {{it.nombre}}
+                        </h5>
+                        <small>{{it.descripcion}} (Ponderación: {{it.ponderacion}})</small>
+
+                        <div class="list-group mt-2" ng-if="it.activo">
+                            <div class="list-group-item"
+                                ng-repeat="i in it.subcaracteristicas | filter:{activo : true}">
+                                <h5 class="mb-0">
+                                    {{i.nombre}}
+                                </h5>
+                                <small>{{i.descripcion}} (Ponderación: {{i.ponderacion}})</small>
+
+                                <div ng-if="i.activo">
+                                    <table class="table mt-3 table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-50">Nombre</th>
+                                                <th scope="col">Ponderación</th>
+                                                <th scope="col">Calificación(1-5)</th>
+                                                <th scope="col">Calificación ponderada</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="a in i.atributos" ng-if="a.ponderacion > 0">
+                                                <td>{{a.nombre}}</td>
+                                                <td>{{a.ponderacion}}</td>
+                                                <td>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                        ng-model="a.calificacion" step="1" min="1" max="5"
+                                                        oninput="this.value = this.value < 0 ? 0 : this.value > 5 ? 5 : this.value"
+                                                        required />
+                                                </td>
+                                                <td>
+                                                    {{a.ponderacion * (a.calificacion||0)}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-right">Totales</th>
+                                                <th>{{getTotal(i.atributos)}}</th>
+                                                <th></th>
+                                                <th>{{getTotalPonderado(i.atributos)}}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-12 text-center mt-3">
+                    <button class="btn btn-lg btn-danger" ng-click="backTab()">
+                        Volver
+                    </button>
+                    <button class="btn btn-lg btn-success" type="submit" ng-click="pasarTab('resultados')">
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
+                <h2 class="title text-primary mb-3 mt-3">
+                    Resultados de la evaluación
+                </h2>
+
+                <div class="row">
+                    <div class="col-12 col-md-12 mb-3">
+
+                        <h5>Nombre del producto: {{item.nombre}}</h5>
+
+                    </div>
+                    <div class="col-12 col-md-12 mb-3">
+
+                        <h5>Descripción del producto</h5>
+                        <p>{{item.descripcion}}</p>
+                    </div>
+                    <div class="col-12 col-md-12 mb-3">
+
+                        <h5>Propósito:</h5>
+                        <p>{{item.proposito}}</p>
+                    </div>
+                    <div class="col-12 col-md-12 mb-3">
+
+                        <h5>Objetivos:</h5>
+                        <p>{{item.objetivos}}</p>
+                    </div>
+                    <div class="col-12 col-md-12 mb-3">
+
+                        <h5>Evaluador responsable: {{item.responsable}}</h5>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h5>Fecha inicio: {{item.fecha_inicio | date: 'dd/MM/yyyy'}}</h5>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h5>Fecha finalización: {{item.fecha_fin | date: 'dd/MM/yyyy'}}</h5>
+                    </div>
+                    <div class="col-12 col-md-12 mb-3">
+                        <h5>Evaluadores:</h5>
+                        <p>
+                            <span ng-repeat="e in item.evaluadores">{{e}}, </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <table class="table table-sm table-striped mt-3">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Carcaterística</th>
+                                    <th>Subcarcaterística</th>
+                                    <th>Ponderación</th>
+                                    <th>Calificación</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="c in item.caracteristicas | filter:{activo : true} as filtrado">
+                                <tr>
+                                    <td class="align-middle"
+                                        rowspan="{{(c.subcaracteristicas | filter:{activo : true}).length + 1}}">
+                                        {{c.nombre}}
+                                    </td>
+                                    <td></td>
+                                    <td>{{c.ponderacion}}</td>
+                                    <td></td>
+                                </tr>
+                                <tr ng-repeat="s in c.subcaracteristicas | filter:{activo : true}">
+                                    <td>{{s.nombre}}</td>
+                                    <td>{{s.ponderacion}}</td>
+                                    <td>{{getTotalPonderado(s.atributos)}}</td>
+ 
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-12 text-center mt-3">
+                    <div class="col-12 col-md-12 text-center mt-3">
+                        <button class="btn btn-lg btn-danger" ng-click="backTab()">
+                            Volver
+                        </button>
+                        <button class="btn btn-lg btn-success" type="submit">
+                            Guardar evaluación
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Cargar Artefacto</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2-bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>
+
+    <script>
+        $("#evaluadores").select2({
+            theme: "classic",
+        });
+
+
+        angular.module("App", [])
+            .directive('fileModel', ['$parse', function ($parse) {
+                return {
+                    restrict: 'A',
+                    link: function (scope, element, attrs) {
+                        const model = $parse(attrs.fileModel);
+                        const modelSetter = model.assign;
+
+                        // Detectar cambios en el input file
+                        element.bind('change', function () {
+                            scope.$apply(function () {
+                                modelSetter(scope, element[0].files[0]); // Asignar el archivo seleccionado al modelo
+                            });
+                        });
+                    }
+                };
+            }])
+            .controller("Ctrl", function ($scope) {
+                $scope.item = {
+                    evaluadores: [],
+                    responsable: null,
+                    caracteristicas: [
+                        {
+                            id: 1,
+                            nombre: "Funcionalidad",
+                            descripcion:
+                                "La capacidad del producto de software para proveer las funciones que satisfacen las necesidades explícitas e implícitas cuando el software se utiliza bajo condiciones específicas.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Adecuación",
+                                    descripcion:
+                                        "La capacidad del producto de software para proveer un adecuado conjunto de funciones para las tareas y objetivos especificados por el usuario.",
+                                    atributos: [
+                                        { nombre: "Alcance de la implementación funcional" },
+                                        {
+                                            nombre:
+                                                "Estabilidad (o volatilidad) de la especificación funcional",
+                                        },
+                                        { nombre: "Suficiencia Funcional" },
+                                        { nombre: "Integridad de la implementación funcional" },
+                                        { nombre: "Alcance de la implementación funcional" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Exactitud",
+                                    descripcion:
+                                        "La capacidad del producto de software para proveer los resultados o efectos acordados con un grado necesario de precisión.",
+                                    atributos: [
+                                        { nombre: "Exactitud Computacional" },
+                                        { nombre: "Precisión" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Conformidad con la funcionalidad",
+                                    descripcion:
+                                        "La capacidad del producto de software de adherirse a los estándares, convenciones o regulaciones legales y prescripciones similares referentes a la funcionalidad.",
+                                    atributos: [
+                                        { nombre: "Conformidad estándar de la interfaz" },
+                                    ],
+                                },
+                            ],
+                        },
+
+                        {
+                            id: 2,
+                            nombre: "Fiabilidad",
+                            descripcion:
+                                "La capacidad del producto software para mantener un nivel especificado de funcionamiento cuando se está utilizando bajo condiciones especificadas.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Madurez",
+                                    descripcion:
+                                        "La capacidad del producto software para evitar fallas como resultado de errores en el software.",
+                                    atributos: [
+                                        { nombre: "Detección de fallas" },
+                                        { nombre: "Remoción de fallos" },
+                                    ],
+                                },
+
+                                {
+                                    nombre: "Tolerancia a fallos",
+                                    descripcion:
+                                        "La capacidad del producto software para mantener un nivel especificado de funcionamiento en caso de errores del software o de incumplimiento de su interfaz especificada.",
+                                    atributos: [
+                                        { nombre: "Prevención de fallas" },
+                                        { nombre: "Prevención de operación incorrecta" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Recuperabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para reestablecer un nivel especificado de funcionamiento y recuperar los datos afectados directamente en el caso de una falla.",
+                                    atributos: [
+                                        { nombre: "Facilidad de Restauración" },
+                                        { nombre: "Tiempo medio de inactividad" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Conformidad de fiabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para adherirse a las normas, convenciones o regulaciones relativas a la fiabilidad.",
+                                    atributos: [{ nombre: "Conformidad con la fiabilidad" }],
+                                },
+                            ],
+                        },
+
+                        {
+                            id: 3,
+                            nombre: "Usabilidad",
+                            descripcion:
+                                "La capacidad del producto software de ser entendido, aprendido, usado y atractivo al usuario, cuando es usado bajo las condiciones especificadas.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Entendibilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para permitir al usuario entender si el software es aplicable, y cómo puede ser utilizado para las tareas y las condiciones particulares de la aplicación.",
+                                    atributos: [
+                                        { nombre: "Integridad de la descripción" },
+                                        { nombre: "Capacidad de la demostración	" },
+                                        { nombre: "Comprensibilidad de la función" },
+                                        { nombre: "Entrada y salida comprensibles" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Facilidad de aprendizaje",
+                                    descripcion:
+                                        "La capacidad del producto software para permitir al usuario aprender su aplicación.",
+                                    atributos: [
+                                        {
+                                            nombre:
+                                                "Integridad de la documentación del usuario y/o de la facilidad de la ayuda",
+                                        },
+                                        { nombre: "Facilidad de aprender de la función" },
+                                        {
+                                            nombre:
+                                                "Facilidad de aprender a realizar una tarea en uso",
+                                        },
+                                        { nombre: "Accesibilidad de la ayuda" },
+                                    ],
+                                },
+
+                                {
+                                    nombre: "Operabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para permitir al usuario operarlo y controlarlo.",
+                                    atributos: [
+                                        {
+                                            nombre: "Facilidad de cancelar la operacion del usuario",
+                                        },
+                                        { nombre: "Facilidad de anular la operación del usuario" },
+                                        { nombre: "Claridad del Mensaje" },
+                                        {
+                                            nombre:
+                                                "Facilidad de recuperación de un error operacional	",
+                                        },
+                                    ],
+                                },
+                                {
+                                    nombre: "Atractividad",
+                                    descripcion:
+                                        "La capacidad del producto software de ser atractivo al usuario.",
+                                    atributos: [
+                                        { nombre: "Interacción atractiva" },
+                                        {
+                                            nombre: "Personalización de la apariencia de la interfaz",
+                                        },
+                                    ],
+                                },
+
+                                {
+                                    nombre: "Conformidad de usabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para adherirse a las normas, convenciones, guías de estilo o regulaciones relacionadas a su usabilidad.",
+                                    atributos: [{ nombre: "Conformidad con la usabilidad" }],
+                                },
+                            ],
+                        },
+                        {
+                            id: 4,
+                            nombre: "Eficiencia",
+                            descripcion:
+                                "La capacidad del producto software para proveer un desempeño apropiado, de acuerdo a la cantidad de recursos utilizados y bajo las condiciones planteadas.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Comportamiento en el tiempo",
+                                    descripcion:
+                                        "La capacidad del producto software para proveer tiempos apropiados de respuesta y procesamiento, y ratios de rendimiento cuando realiza su función bajo las condiciones establecidas.",
+                                    atributos: [
+                                        { nombre: "Tiempo de respuesta" },
+                                        { nombre: "Tiempo del rendimiento de procesamiento" },
+                                        { nombre: "Plazo de entrega" },
+                                        { nombre: "Rendimiento de procesamiento" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Utilización de recursos",
+                                    descripcion:
+                                        "La capacidad del producto software para utilizar apropiadas cantidades y tipos de recursos cuando éste funciona bajo las condiciones establecidas.",
+                                    atributos: [
+                                        { nombre: "Utilización de entrada/salida" },
+                                        { nombre: "Utilización de la memoria" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Conformidad de eficiencia",
+                                    descripcion:
+                                        "La capacidad del producto software para adherirse a normas o convenciones relacionadas a la eficiencia.",
+                                    atributos: [{ nombre: "Conformidad con la eficiencia" }],
+                                },
+                            ],
+                        },
+                        {
+                            id: 5,
+                            nombre: "Facilidad de mantenimiento",
+                            descripcion:
+                                "Capacidad del producto software para ser modificado. Las modificaciones pueden incluir correcciones, mejoras o adaptación del software a cambios en el entorno, y en requerimientos y especificaciones funcionales.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Analizabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para ser diagnosticado por deficiencias o causas de fallas en el software o la identificación de las partes a ser modificadas.",
+                                    atributos: [
+                                        { nombre: "Preparación de la función de diagnóstico" },
+                                        { nombre: "Capacidad de análisis de falla" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Cambiabilidad",
+                                    descripcion:
+                                        "La capacidad del software para permitir que una determinada modificación sea implementada.",
+                                    atributos: [
+                                        { nombre: "Facilidad de registrar los cambios" },
+                                        { nombre: "Complejidad de la modificación" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Estabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para evitar efectos inesperados debido a modificaciones del software.",
+                                    atributos: [
+                                        { nombre: "Localización del impacto de la modificación" },
+                                        { nombre: "Cambio en la proporción del éxito" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Testeabilidad",
+                                    descripcion:
+                                        "La capacidad del software para permitir que las modificaciones puedan ser validadas.",
+                                    atributos: [
+                                        {
+                                            nombre:
+                                                "Facilidad de observación del desarrollo de la prueba",
+                                        },
+                                        { nombre: "Re-prueba de la eficiencia" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Conformidad de facilidad de mantenimiento",
+                                    descripcion:
+                                        "La capacidad del software para adherirse a estándares o convenciones relativas a la facilidad de mantenimiento.",
+                                    atributos: [
+                                        { nombre: "Conformidad con la facilidad de mantenimiento" },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            id: 6,
+                            nombre: "Portabilidad",
+                            descripcion:
+                                "La capacidad del software para ser trasladado de un entorno a otro.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Adaptabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para ser adaptado a diferentes entornos definidos sin aplicar acciones o medios diferentes de los previstos para el propósito del software considerado.",
+                                    atributos: [
+                                        { nombre: "Adaptabilidad de las estructuras de datos" },
+                                        { nombre: "Adaptabilidad del ambiente de hardware" },
+                                        { nombre: "Amigabilidad del usuario" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Instalabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para ser instalado en un entorno definido.",
+                                    atributos: [
+                                        { nombre: "Facilidad de reintentar el setup" },
+                                        { nombre: "Facilidad de instalación" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Co existencia",
+                                    descripcion:
+                                        "La capacidad del producto software para co-existir con otro producto software independiente dentro de un mismo entorno compartiendo recursos comunes.",
+                                    atributos: [{ nombre: "Coexistencia disponible" }],
+                                },
+                                {
+                                    nombre: "Reemplazabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para ser utilizado en lugar de otro producto software, para el mismo propósito y  en el mismo entorno.",
+                                    atributos: [
+                                        { nombre: "Uso continuo de los datos" },
+                                        { nombre: "Inclusividad de la función" },
+                                        { nombre: "Consistencia funcional al soporte del usuario" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Conformid.de portabilidad",
+                                    descripcion:
+                                        "La capacidad del software para adherirse a estándares o convenciones relacionados a la portabilidad.",
+                                    atributos: [{ nombre: "Conformidad con la portabilidad" }],
+                                },
+                            ],
+                        },
+                        {
+                            id: 7,
+                            nombre: "Seguridad",
+                            descripcion:
+                                "La capacidad del producto de software para proveer las funciones que satisfacen las necesidades explícitas e implícitas cuando el software se utiliza bajo condiciones específicas.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Resistente al Acceso",
+                                    descripcion:
+                                        "La capacidad del software para proteger de accesos ilegales y no autorizados.",
+                                    atributos: [
+                                        { nombre: "Uso controlado del Acceso" },
+                                        { nombre: "Facilidad de auditar los Accesos" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Resistente a la copia",
+                                    descripcion:
+                                        "La capacidad del producto software para ser instalado en un entorno definido.",
+                                    atributos: [{ nombre: "Incidentes de copia" }],
+                                },
+                                {
+                                    nombre: "Facilidad de cifrado",
+                                    descripcion:
+                                        "La capacidad del producto de software para proteger de buscadores ilegales por encriptación.",
+                                    atributos: [{ nombre: "CCifrado de datos" }],
+                                },
+                                {
+                                    nombre: "Resistente a la falsificación",
+                                    descripcion:
+                                        "La capacidad del producto de software para no permitir el análisis de la estructura interna y de datos almacenados.",
+                                    atributos: [{ nombre: "Incidentes de falsificación" }],
+                                },
+                                {
+                                    nombre: "Robustez",
+                                    descripcion:
+                                        "La capacidad del producto de software para recuperarse de entradas y situaciones anómalas.",
+                                    atributos: [
+                                        { nombre: "Prevención de la corrupción de datos" },
+                                    ],
+                                },
+                                {
+                                    nombre: "Conformidad con la seguridad",
+                                    descripcion:
+                                        "La capacidad del producto de software para adherirse a estándares, convenciones o regulaciones en lo relacionado con seguridad.",
+                                    atributos: [{ nombre: "Regulación de la seguridad" }],
+                                },
+                            ],
+                        },
+                        {
+                            id: 8,
+                            nombre: "Interoperabilidad",
+                            descripcion:
+                                "La capacidad del producto de software de interactuar con uno o más sistemas especificados.",
+                            subcaracteristicas: [
+                                {
+                                    nombre: "Compatibilidad de la OSI",
+                                    descripcion:
+                                        "La capacidad del producto de software para interactuar con uno o más sistemas especificados en cada nivel de la capa de la OSI (Open Systems Interconnection).",
+                                    atributos: [
+                                        {
+                                            nombre:
+                                                "Intercambiabilidad de los datos (éxito del usuario basado en intentos)",
+                                        },
+                                    ],
+                                },
+                                {
+                                    nombre: "Compatibilidad del Software",
+                                    descripcion:
+                                        "La capacidad del producto de software para ser cooperativamente operable con uno o más productos de software.",
+                                    atributos: [{ nombre: "Interoperabilidad con el software" }],
+                                },
+                                {
+                                    nombre: "Compatibilidad de los datos",
+                                    descripcion:
+                                        "La capacidad del producto de software para intercambiar los datos con uno o más sistemas especificados.",
+                                    atributos: [
+                                        {
+                                            nombre:
+                                                "Intercambiabilidad de Datos (Basado en el formato de datos)",
+                                        },
+                                    ],
+                                },
+                                {
+                                    nombre: "Trazabilidad",
+                                    descripcion:
+                                        "La capacidad del producto software para registrar los registros operacionales para analizar la causa de la interacción fracasada. ",
+                                    atributos: [{ nombre: "Iteraciones grabadas" }],
+                                },
+                                {
+                                    nombre: "Conformidad con la interoperabilidad",
+                                    descripcion:
+                                        "La capacidad del producto de software para adherirse a los estándares, convenciones o regulaciones en lo relacionado a la interoperabilidad.",
+                                    atributos: [{ nombre: "Regulación de interoperabilidad" }],
+                                },
+                            ],
+                        },
+                    ],
+                    file: null
+                };
+
+                $scope.pasarTab = function (tab, form) {
+                    const tabs = [
+                        "home",
+                        "profile",
+                        "plan-evaluacion",
+                        "contact",
+                        "calificacion",
+                        "resultados",
+                    ];
+
+                    // Validar el formulario si es necesario
+                    $scope.showError = false;
+                    if (!$scope.item.file && form?.$name == 'plan-evaluacion') {
+                        $scope.showError = true;
+                        return; // No enviar el formulario
+                    }
+                    if (form) {
+                        if (!form.$valid) {
+                            // Añadir clase 'is-invalid' a los campos inválidos
+                            const invalidFields = document.querySelectorAll("[name]:invalid");
+                            invalidFields.forEach((field) => {
+                                field.classList.add("is-invalid");
+                            });
+
+                            // Salir si el formulario no es válido
+                            return;
+                        } else {
+                            // Remover la clase 'is-invalid' si los campos son válidos
+                            const allFields = document.querySelectorAll("[name]");
+                            allFields.forEach((field) => {
+                                field.classList.remove("is-invalid");
+                            });
+                        }
+                    }
+
+                    // Calcular el índice del tab actual
+                    const currentIndex = tabs.indexOf(tab);
+                    const totalSteps = tabs.length;
+
+                    // Mostrar mensaje dinámico "Paso X de Y"
+                    document.getElementById("progress-message").textContent = `Paso ${currentIndex + 1
+                        } de ${totalSteps}`;
+
+                    // Actualizar la barra de progreso de forma dinámica
+                    const progressBar = document.getElementById("progress-bar");
+                    progressBar.style.width = `${((currentIndex + 1) / totalSteps) * 100
+                        }%`;
+                    progressBar.setAttribute(
+                        "aria-valuenow",
+                        (currentIndex + 1) * (100 / totalSteps)
+                    );
+
+                    // Deshabilitar todos los tabs excepto el actual
+                    tabs.forEach((id) => {
+                        const element = document.querySelector(`#${id}-tab`);
+                        if (id === tab) {
+                            element.classList.remove("disabled");
+                        } else {
+                            element.classList.add("disabled");
+                        }
+                    });
+
+                    // Cambiar al tab actual
+                    $('#myTab a[href="#' + tab + '"]').tab("show");
+
+                    // Calcular valores si el tab es 'resultados'
+                    if (tab === "resultados") {
+                        $scope.item.caracteristicas.forEach((c) => {
+                            if (c.activo) {
+                                let sm = 0;
+                                c.subcaracteristicas.forEach((s) => {
+                                    if (s.activo) {
+                                        s.calificacion = $scope.getTotalC(s.atributos);
+                                        sm += s.calificacion * s.ponderacion;
+                                    }
+                                });
+                                c.calificacion = sm;
+                            }
+                        });
+                    }
+                };
+
+
+                $scope.backTab = function () {
+                    // Array con los IDs de los tabs en orden
+                    const tabs = [
+                        "home",
+                        "profile",
+                        'plan-evaluacion',
+                        "contact",
+                        "calificacion",
+                        "resultados",
+                    ];
+
+                    // Buscar el tab actualmente activo
+                    const activeTab = tabs.find((id) => {
+                        const element = document.querySelector(`#${id}-tab`);
+                        return !element.classList.contains("disabled");
+                    });
+
+                    // Obtener el índice del tab activo
+                    const activeIndex = tabs.indexOf(activeTab);
+
+                    // Si no hay un tab anterior, salir
+                    if (activeIndex <= 0) return;
+
+                    // Mover al tab anterior
+                    const previousTab = tabs[activeIndex - 1];
+
+                    // Deshabilitar todos los tabs excepto el anterior
+                    tabs.forEach((id) => {
+                        const element = document.querySelector(`#${id}-tab`);
+                        if (id === previousTab) {
+                            element.classList.remove("disabled");
+                        } else {
+                            element.classList.add("disabled");
+                        }
+                    });
+
+                    // Cambiar al tab anterior
+                    $('#myTab a[href="#' + previousTab + '"]').tab("show");
+
+                    // Actualizar el mensaje de progreso
+                    const totalSteps = tabs.length;
+                    const progressMessage = `Paso ${activeIndex} de ${totalSteps}`;
+                    document.getElementById("progress-message").textContent =
+                        progressMessage;
+
+                    // Actualizar la barra de progreso
+                    const progressBar = document.getElementById("progress-bar");
+                    progressBar.style.width = `${(activeIndex / totalSteps) * 100}%`;
+                    progressBar.setAttribute(
+                        "aria-valuenow",
+                        activeIndex * (100 / totalSteps)
+                    );
+                };
+
+                $scope.getTotal = function (array) {
+                    var s = 0;
+                    if (array) {
+                        array.forEach((e) => {
+                            s += e.ponderacion ? e.ponderacion : 0;
+                        });
+                    }
+                    return s;
+                };
+                $scope.getTotalC = function (array) {
+                    var s = 0;
+                    if (array) {
+                        array.forEach((e) => {
+                            s += e.calificacion ? e.calificacion : 0;
+                        });
+                    }
+                    return s;
+                };
+
+
+                $scope.getTotalPonderado = function (array) {
+                    var s = 0;
+
+                    if (array) {
+                        array.forEach((e) => {
+                            s += e.calificacion && e.ponderacion ? e.calificacion * e.ponderacion : 0
+                        }
+                        )
+                    };
+
+                    return s;
+                }
+
+                $scope.getTotalPonderadoC = function (object) {
+                    var s = 0;
+                    var c = 0;
+
+                    if (object) {
+                        object.subcaracteristicas.forEach((e) => {
+                            e.atributos.forEach((i) => {
+                                s += i.calificacion && i.ponderacion ? i.calificacion * i.ponderacion : 0
+                            })
+                            c += e.ponderacion && s ? s * e.ponderacion : 0
+                        })
+                    };
+
+                    return c;
+                }
+            })
+    </script>
+</body>
+
+</html>
